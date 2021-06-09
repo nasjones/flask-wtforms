@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+<!-- Title block -->
+{%block title%}
+<title>Adopt Homepage</title>
+{%endblock%}
+<!-- Link block -->
+{%block links%}
+<link rel="stylesheet" href="/static/home.css" />
+{%endblock%}
+<!-- Body block -->
+{%block content%}
+<h1>Pets</h1>
+<!-- Flashed messages -->
+{%for message in get_flashed_messages()%}
+<p>{{message}}</p>
+{%endfor%}
+<!-- List of pets -->
+{%for pet in pets%}
+<a href="/{{pet.id}}"><h2>{{pet.name}}</h2></a>
+{%if pet.photo_url%}
+<img src="{{pet.photo_url}}" alt="{{pet.name}}'s photo" class="pet-photo" />
+{%else%}
+<p>[No photo available]</p>
+{%endif%}
+<br />
+{%if pet.available%}
+<span><b>Available</b></span>
+{%else%}
+<span><b>Not Available</b></span>
+{%endif%} {%endfor%}
+<br />
+<a href="/add">Add a pet</a>
+{%endblock%}

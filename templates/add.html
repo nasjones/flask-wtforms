@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+<!-- Title Block -->
+{%block title%}
+<title>Add new pet</title>
+{%endblock%}
+<!-- Links block -->
+{%block links%}
+<link rel="stylesheet" href="/static/home.css" />
+{%endblock%}
+<!-- Content block -->
+{%block content%}
+<form method="POST">
+	{{ form.hidden_tag() }}
+	<!-- loop through fields -->
+	{%for field in form if field.widget.input_type != 'hidden' %}
+	<p>
+		{{field.label}}: <br />
+		{{field}} <br />
+		{% for error in field.errors %} {%if error%}
+		<span class="error"> {{ error }} </span>
+		{%else%}
+		<span>Problem here</span>
+		{%endif%} {% endfor %}
+	</p>
+	{%endfor%}
+	<button type="submit">Submit</button>
+</form>
+{%endblock%}

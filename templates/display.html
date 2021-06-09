@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+<!-- Title block -->
+{%block title%}
+<title>{{pet.name}}'s Display</title>
+{%endblock%}
+<!-- Links block -->
+{%block links%}
+<link rel="stylesheet" href="/static/home.css" />
+{%endblock%}
+<!-- Content Block -->
+{%block content%}
+<a href="/">Go Home</a>
+<h1>{{pet.name}}</h1>
+{%for message in get_flashed_messages()%}
+<p>{{message}}</p>
+{%endfor%}
+<h2>{{pet.species}}</h2>
+<span>age: {{pet.age}}</span>
+<br />
+<!-- Flashed messages -->
+{%if pet.photo_url%}
+<img src="{{pet.photo_url}}" alt="{{pet.name}}'s photo" class="display-photo" />
+{%else%}
+<p>[No photo available]</p>
+{%endif%}
+<h3>Edit {{pet.name}}'s Info</h2>
+<form method="POST">
+	{{ form.hidden_tag() }}
+	<!-- loop through fields -->
+	{%for field in form if field.widget.input_type != 'hidden' %}
+	<p>
+		{{field.label}}: <br />
+		{{field}} <br />
+		{% for error in field.errors %} {%if error%}
+		<span class="error"> {{ error }} </span>
+		{%else%}
+		<span>Problem here</span>
+		{%endif%} {% endfor %}
+	</p>
+	{%endfor%}
+	<button type="submit">Update</button>
+</form>
+{%endblock%}
